@@ -15,5 +15,5 @@
     "test": "react-scripts test --env=jsdom",
     "eject": "react-scripts eject"
   },
-  "homepage": "https://dd328199005.github.io/react-yinxiang/build/index.html"
+  "homepage": "https://dd328199005.github.io/react-yinxiang/build/"
 }
