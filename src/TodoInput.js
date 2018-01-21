@@ -10,7 +10,10 @@ class TodoInput extends Component {
     }
     submit(event){
         if (event.key === 'Enter') {
-            this.props.onSubmit(event)
+            // this.props.onSubmit(event)
+            if (event.target.value.trim()) {
+                this.props.onSubmit(event)
+            }
         }
     }
     changeTitle(e){
