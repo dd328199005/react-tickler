@@ -4,9 +4,8 @@ import './reset.css'
 import './App.css';
 import TodoInput from './TodoInput'
 import TodoItem from './TodoItem'
-import * as localStore from './localStore'
 import AV from './leanCloud.js'
-
+import UserDialog from './UserDialog'
 
 
 // var TestObject = AV.Object.extend('TestObject');
@@ -29,8 +28,9 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
+      user: {},
       newTodo: '',
-      todoList: localStore.load('todoList') || []
+      todoList: []
     }
   }
   render(){
@@ -40,13 +40,13 @@ class App extends Component {
           <TodoItem todo={item} 
                     onToggle={this.toggle.bind(this)}
                     onDelete={this.deleteTodo.bind(this)}
-                    />
+          />
         </li>
       )
     })
     return (
       <div className="App">
-        <h1>我的待办</h1>
+        <h1>{this.state.user.username || '我'}的待办</h1>
         <div className="inputWrapper">
           <TodoInput content={this.state.newTodo} 
                      onSubmit={this.addTodo.bind(this)}
@@ -56,11 +56,16 @@ class App extends Component {
         <ol className="todoList">
           {todos}
         </ol>
+        <UserDialog onSignUp={this.onSignUp.bind(this)}/>
       </div>
     );
   }
   componentDidUpdate(){
-    localStore.save('todoList', this.state.todoList)
+    
+  }
+  onSignUp(user){
+    this.state.user = user
+    this.setState(this.state)
   }
 
   deleteTodo(e,todo){
